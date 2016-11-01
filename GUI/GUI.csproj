@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HighwayToHell.GUI</RootNamespace>
     <AssemblyName>HighwayToHell.GUI</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -29,6 +29,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -91,10 +92,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Interface\IData.cs" />
+    <Compile Include="Interface\IMapper.cs" />
     <Compile Include="Interface\IViewModel.cs" />
     <Compile Include="Model\PersonData.cs" />
     <Compile Include="Model\SinData.cs" />
     <Compile Include="Model\ViewModelData.cs" />
+    <Compile Include="Service\Mapper\DtoMapperFactory.cs" />
+    <Compile Include="Service\Mapper\PersonDtoToPersonDataMapper.cs" />
+    <Compile Include="Service\Mapper\SinDtoToSinDataMapper.cs" />
     <Compile Include="Service\ViewModelDataBuilder.cs" />
     <Compile Include="ViewModel\GUIViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -169,7 +174,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Repository\Repository.csproj">
+      <Project>{9a8149d0-1df1-4abc-ac4b-e8bfe7e774c2}</Project>
+      <Name>Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
