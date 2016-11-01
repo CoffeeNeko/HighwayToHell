@@ -1,0 +1,8 @@
+C:\Users\nrj\Documents\Visual Studio 2013\Projects\HighwayToHell\Bin\Debug\HighwayToHell.Main.XML
+C:\Users\nrj\Documents\Visual Studio 2013\Projects\HighwayToHell\Bin\Debug\HighwayToHell.Main.dll
+C:\Users\nrj\Documents\Visual Studio 2013\Projects\HighwayToHell\Bin\Debug\HighwayToHell.Main.pdb
+C:\Users\nrj\Documents\Visual Studio 2013\Projects\HighwayToHell\Main\obj\Debug\Main.csprojResolveAssemblyReference.cache
+C:\Users\nrj\Documents\Visual Studio 2013\Projects\HighwayToHell\Main\obj\Debug\HighwayToHell.Main.Properties.Resources.resources
+C:\Users\nrj\Documents\Visual Studio 2013\Projects\HighwayToHell\Main\obj\Debug\Main.csproj.GenerateResource.Cache
+C:\Users\nrj\Documents\Visual Studio 2013\Projects\HighwayToHell\Main\obj\Debug\HighwayToHell.Main.dll
+C:\Users\nrj\Documents\Visual Studio 2013\Projects\HighwayToHell\Main\obj\Debug\HighwayToHell.Main.pdb
