@@ -1,24 +1,25 @@
-﻿using HighwayToHell.GUI.Model;
+﻿using System.Collections.Generic;
+using HighwayToHell.GUI.Model;
+using HighwayToHell.GUI.Service.Mapper;
+using HighwayToHell.Repository.Dto;
 
 namespace HighwayToHell.GUI.Service
 {
     class ViewModelDataBuilder
     {
-        //ToDo private readonly DtoMapperFactory _dtoMapperFactory;
+        private readonly DtoMapperFactory _dtoMapperFactory;
 
         public ViewModelDataBuilder()
         {
-            //ToDo _dtoMapperFactory = new DtoMapperFactory();
+            _dtoMapperFactory = new DtoMapperFactory();
         }
 
-        // ToDo public void AddPersonDtoList(IEnumerable<PersonDto> PersonDtoList)
-        public void AddPersonDtoList()
+        public void AddPersonDtoList(IEnumerable<PersonDto> personDtoList)
         {
 
         }
 
-        // ToDo public void AddSinDtoList(IEnumerable<SinDto> SinDtoList)
-        public void AddSinDtoList()
+        public void AddSinDtoList(IEnumerable<SinDto> sinDtoList)
         {
 
         }

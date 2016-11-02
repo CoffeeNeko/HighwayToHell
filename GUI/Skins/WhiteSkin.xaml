@@ -1,0 +1,208 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="BackgroundGround" TargetType="Grid">
+        <Setter Property="Background" Value="Black" />
+    </Style>
+    <Style x:Key="BackgroundStyle" TargetType="Grid">
+        <Setter Property="Background">
+            <Setter.Value>
+                <DrawingBrush Stretch="Fill"
+                              TileMode="Tile"
+                              Viewport="0,0,4,4"
+                              ViewportUnits="Absolute">
+                    <DrawingBrush.Drawing>
+                        <DrawingGroup>
+                            <GeometryDrawing>
+                                <GeometryDrawing.Brush>
+                                    <SolidColorBrush Color="#00373737" />
+                                </GeometryDrawing.Brush>
+                                <GeometryDrawing.Geometry>
+                                    <GeometryGroup>
+                                        <RectangleGeometry Rect="0,0,1,1" />
+                                        <RectangleGeometry Rect="2,0,1,1" />
+                                    </GeometryGroup>
+                                </GeometryDrawing.Geometry>
+                            </GeometryDrawing>
+                            <GeometryDrawing>
+                                <GeometryDrawing.Brush>
+                                    <SolidColorBrush Color="DarkGray" />
+                                </GeometryDrawing.Brush>
+                                <GeometryDrawing.Geometry>
+                                    <GeometryGroup>
+                                        <RectangleGeometry Rect="0,1,1,1" />
+                                        <RectangleGeometry Rect="2,1,1,1" />
+                                    </GeometryGroup>
+                                </GeometryDrawing.Geometry>
+                            </GeometryDrawing>
+                            <GeometryDrawing>
+                                <GeometryDrawing.Brush>
+                                    <SolidColorBrush Color="#00070707" />
+                                </GeometryDrawing.Brush>
+                                <GeometryDrawing.Geometry>
+                                    <GeometryGroup>
+                                        <RectangleGeometry Rect="0,0,1,1" />
+                                        <RectangleGeometry Rect="2,2,1,1" />
+                                    </GeometryGroup>
+                                </GeometryDrawing.Geometry>
+                            </GeometryDrawing>
+                            <GeometryDrawing>
+                                <GeometryDrawing.Brush>
+                                    <SolidColorBrush Color="DimGray" />
+                                </GeometryDrawing.Brush>
+                                <GeometryDrawing.Geometry>
+                                    <GeometryGroup>
+                                        <RectangleGeometry Rect="0,1,1,1" />
+                                        <RectangleGeometry Rect="2,3,1,1" />
+                                    </GeometryGroup>
+                                </GeometryDrawing.Geometry>
+                            </GeometryDrawing>
+                        </DrawingGroup>
+                    </DrawingBrush.Drawing>
+                </DrawingBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="SinsStyle" TargetType="ListView">
+        <Setter Property="Background">
+            <Setter.Value>
+                <DrawingBrush Stretch="Fill"
+                              TileMode="Tile"
+                              Viewport="15,1,20,3"
+                              ViewportUnits="Absolute">
+                    <DrawingBrush.Drawing>
+                        <DrawingGroup>
+                            <GeometryDrawing>
+                                <GeometryDrawing.Brush>
+                                    <LinearGradientBrush>
+                                        <GradientStop Offset="0" Color="SaddleBrown" />
+                                        <GradientStop Offset="1" Color="SandyBrown" />
+                                    </LinearGradientBrush>
+                                </GeometryDrawing.Brush>
+                                <GeometryDrawing.Geometry>
+                                    <GeometryGroup>
+                                        <CombinedGeometry>
+                                            <CombinedGeometry.Geometry1>
+                                                <RectangleGeometry Rect="0,0,1,1" />
+                                            </CombinedGeometry.Geometry1>
+                                            <CombinedGeometry.Geometry2>
+                                                <EllipseGeometry RadiusX="2.5" RadiusY="5.5" />
+                                            </CombinedGeometry.Geometry2>
+                                            <CombinedGeometry.GeometryCombineMode>
+                                                Xor
+                                            </CombinedGeometry.GeometryCombineMode>
+                                        </CombinedGeometry>
+                                    </GeometryGroup>
+                                </GeometryDrawing.Geometry>
+                            </GeometryDrawing>
+                            <GeometryDrawing>
+                                <GeometryDrawing.Brush>
+                                    <LinearGradientBrush>
+                                        <GradientStop Offset="0" Color="SandyBrown" />
+                                        <GradientStop Offset="1" Color="SaddleBrown" />
+                                    </LinearGradientBrush>
+                                </GeometryDrawing.Brush>
+                                <GeometryDrawing.Geometry>
+                                    <GeometryGroup>
+                                        <CombinedGeometry>
+                                            <CombinedGeometry.Geometry1>
+                                                <EllipseGeometry RadiusX="2.5" RadiusY="5.5" />
+                                            </CombinedGeometry.Geometry1>
+                                            <CombinedGeometry.Geometry2>
+                                                <LineGeometry StartPoint="2,5" EndPoint="5,2" />
+                                            </CombinedGeometry.Geometry2>
+                                            <CombinedGeometry.GeometryCombineMode>
+                                                Union
+                                            </CombinedGeometry.GeometryCombineMode>
+                                        </CombinedGeometry>
+                                    </GeometryGroup>
+                                </GeometryDrawing.Geometry>
+                            </GeometryDrawing>
+                            <GeometryDrawing>
+                                <GeometryDrawing.Brush>
+                                    <LinearGradientBrush>
+                                        <GradientStop Offset="0" Color="SaddleBrown" />
+                                        <GradientStop Offset="1" Color="SandyBrown" />
+                                    </LinearGradientBrush>
+                                </GeometryDrawing.Brush>
+                                <GeometryDrawing.Geometry>
+                                    <GeometryGroup>
+                                        <CombinedGeometry>
+                                            <CombinedGeometry.Geometry1>
+                                                <LineGeometry StartPoint="2,5" EndPoint="5,2" />
+                                            </CombinedGeometry.Geometry1>
+                                            <CombinedGeometry.Geometry2>
+                                                <EllipseGeometry RadiusX="5.5" RadiusY="2.5" />
+                                            </CombinedGeometry.Geometry2>
+                                            <CombinedGeometry.GeometryCombineMode>
+                                                Xor
+                                            </CombinedGeometry.GeometryCombineMode>
+                                        </CombinedGeometry>
+                                    </GeometryGroup>
+                                </GeometryDrawing.Geometry>
+                            </GeometryDrawing>
+                            <GeometryDrawing>
+                                <GeometryDrawing.Brush>
+                                    <LinearGradientBrush>
+                                        <GradientStop Offset="0" Color="SandyBrown" />
+                                        <GradientStop Offset="1" Color="SaddleBrown" />
+                                    </LinearGradientBrush>
+                                </GeometryDrawing.Brush>
+                                <GeometryDrawing.Geometry>
+                                    <GeometryGroup>
+                                        <CombinedGeometry>
+                                            <CombinedGeometry.Geometry1>
+                                                <RectangleGeometry Rect="0,1,1,1" />
+                                            </CombinedGeometry.Geometry1>
+                                            <CombinedGeometry.Geometry2>
+                                                <LineGeometry StartPoint="5,2" EndPoint="2,5" />
+                                            </CombinedGeometry.Geometry2>
+                                            <CombinedGeometry.GeometryCombineMode>
+                                                Union
+                                            </CombinedGeometry.GeometryCombineMode>
+                                        </CombinedGeometry>
+                                    </GeometryGroup>
+                                </GeometryDrawing.Geometry>
+                            </GeometryDrawing>
+                        </DrawingGroup>
+                    </DrawingBrush.Drawing>
+                </DrawingBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderThickness" Value="5" />
+        <Setter Property="BorderBrush">
+            <Setter.Value>
+                <DrawingBrush Stretch="Fill"
+                              TileMode="Tile"
+                              Viewport="0,0,8,8"
+                              ViewportUnits="Absolute">
+                    <DrawingBrush.Drawing>
+                        <DrawingGroup>
+                            <GeometryDrawing>
+                                <GeometryDrawing.Brush>
+                                    <LinearGradientBrush>
+                                        <GradientStop Offset="0" Color="Black" />
+                                        <GradientStop Offset="1" Color="SandyBrown" />
+                                    </LinearGradientBrush>
+                                </GeometryDrawing.Brush>
+                                <GeometryDrawing.Geometry>
+                                    <GeometryGroup>
+                                        <CombinedGeometry>
+                                            <CombinedGeometry.Geometry1>
+                                                <RectangleGeometry Rect="0,0,2,2" />
+                                            </CombinedGeometry.Geometry1>
+                                            <CombinedGeometry.Geometry2>
+                                                <RectangleGeometry Rect="2,2,4,4" />
+                                            </CombinedGeometry.Geometry2>
+                                            <CombinedGeometry.GeometryCombineMode>
+                                                Union
+                                            </CombinedGeometry.GeometryCombineMode>
+                                        </CombinedGeometry>
+                                    </GeometryGroup>
+                                </GeometryDrawing.Geometry>
+                            </GeometryDrawing>
+                        </DrawingGroup>
+                    </DrawingBrush.Drawing>
+                </DrawingBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

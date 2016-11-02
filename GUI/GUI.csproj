@@ -77,6 +77,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
@@ -85,6 +86,10 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfAnimatedGif, Version=1.4.14.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WpfAnimatedGif.1.4.14\lib\net\WpfAnimatedGif.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -94,9 +99,11 @@
     <Compile Include="Interface\IData.cs" />
     <Compile Include="Interface\IMapper.cs" />
     <Compile Include="Interface\IViewModel.cs" />
+    <Compile Include="Main.cs" />
     <Compile Include="Model\PersonData.cs" />
     <Compile Include="Model\SinData.cs" />
     <Compile Include="Model\ViewModelData.cs" />
+    <Compile Include="Service\Command.cs" />
     <Compile Include="Service\Mapper\DtoMapperFactory.cs" />
     <Compile Include="Service\Mapper\PersonDtoToPersonDataMapper.cs" />
     <Compile Include="Service\Mapper\SinDtoToSinDataMapper.cs" />
@@ -105,8 +112,11 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelAbstractBase.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="View\GUIView.xaml.cs">
-      <DependentUpon>GUIView.xaml</DependentUpon>
+    <Compile Include="View\GUIViewBlack.xaml.cs">
+      <DependentUpon>GUIViewBlack.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\GUIViewWhite.xaml.cs">
+      <DependentUpon>GUIViewWhite.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -120,11 +130,23 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Skins\BlackSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Skins\MainSkin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\GUIView.xaml">
+    <Page Include="Skins\WhiteSkin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\GUIViewBlack.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\GUIViewWhite.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -144,8 +166,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -179,6 +202,12 @@
       <Project>{9a8149d0-1df1-4abc-ac4b-e8bfe7e774c2}</Project>
       <Name>Repository</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Minutensprunguhr_animiert.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
