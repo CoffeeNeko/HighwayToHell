@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HighwayToHell.Repository.Interface
 {
-    public interface IEntity
+    public interface IEntityToDtoMapper
     {
     }
 }

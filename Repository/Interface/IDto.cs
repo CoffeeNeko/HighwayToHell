@@ -2,6 +2,6 @@
 {
     public interface IDto
     {
-        int Id { get; }
+        int Id { get; set; }
     }
 }
