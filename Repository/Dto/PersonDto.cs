@@ -12,5 +12,10 @@ namespace HighwayToHell.Repository.Dto
         public List<SinDto> Sins { get; set; }
 
         public int Id { get; set; }
+
+        public PersonDto()
+        {
+            Sins = new List<SinDto>();
+        }
     }
 }

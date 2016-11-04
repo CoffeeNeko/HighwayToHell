@@ -29,6 +29,8 @@ namespace GeneralSqlRepository.Dao
                                 );
                     }
                 }
+
+                connection.Close();
             }
             return sins;
         }
@@ -59,6 +61,8 @@ namespace GeneralSqlRepository.Dao
                                                    reader.GetString(2));
                     }
                 }
+
+                connection.Close();
             }
             return sin;
         }
@@ -83,6 +87,13 @@ namespace GeneralSqlRepository.Dao
                     Value = entity.Description
                 };
                 command.Parameters.Add(parameter2);
+
+                SqlParameter parameter3 = new SqlParameter
+                {
+                    ParameterName = Constant.SqlString.SqlParameterIdSin,
+                    Value = entity.Id
+                };
+                command.Parameters.Add(parameter3);
 
                 command.ExecuteNonQuery();
             }

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace HighwayToHell.Repository.Interface
 {
-    public interface IEntityToDtoMapper
+    public interface IEntityFactory
     {
+        IEntity GiveEntityOf(IDto dto);
     }
 }

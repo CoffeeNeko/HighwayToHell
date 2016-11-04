@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using GeneralSqlRepository.Entity;
 using GeneralSqlRepository.Interface;
@@ -31,6 +32,7 @@ namespace GeneralSqlRepository.Dao
                                 );
                     }
                 }
+
             }
             return persons;
         }
@@ -61,6 +63,8 @@ namespace GeneralSqlRepository.Dao
                                                    reader.GetString(2));
                     }
                 }
+
+             
             }
             return person;
         }
@@ -70,24 +74,42 @@ namespace GeneralSqlRepository.Dao
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand(Constant.SqlString.SqlInsertPerson,
-                                                    connection);
-                SqlParameter parameter1 = new SqlParameter
-                {
-                    ParameterName = Constant.SqlString.SqlParameterName,
-                    Value = entity.Name
-                };
-                command.Parameters.Add(parameter1);
+                var transaction = connection.BeginTransaction();
 
-                SqlParameter parameter2 = new SqlParameter
+                //using (SqlCommand command = new SqlCommand(Constant.SqlString.SqlInsertPerson, connection, transaction))
+                using (SqlCommand command = connection.CreateCommand())
                 {
-                    ParameterName = Constant.SqlString.SqlParamedterSurname,
-                    Value = entity.Surname
-                };
-                command.Parameters.Add(parameter2);
+                    command.Connection = connection;
+                    command.Transaction = transaction;
+                    command.CommandText = Constant.SqlString.SqlInsertPerson;
 
-                command.ExecuteNonQuery();
-             }
+                    SqlParameter parameter1 = new SqlParameter
+                    {
+                        ParameterName = Constant.SqlString.SqlParameterName,
+                        Value = entity.Name
+                    };
+                    command.Parameters.Add(parameter1);
+
+                    SqlParameter parameter2 = new SqlParameter
+                    {
+                        ParameterName = Constant.SqlString.SqlParamedterSurname,
+                        Value = entity.Surname
+                    };
+                    command.Parameters.Add(parameter2);
+
+                    SqlParameter parameter3 = new SqlParameter
+                    {
+                        ParameterName = Constant.SqlString.SqlParameterIdPerson,
+                        Value = entity.Id
+                    };
+                    command.Parameters.Add(parameter3);
+
+                    command.ExecuteNonQuery();
+
+                    transaction.Commit();
+                }
+            }
+            
         }
 
         public void RemovePerson(GeneralSqlPersonEntity entity, string connectionString)
@@ -108,7 +130,7 @@ namespace GeneralSqlRepository.Dao
             }
         }
 
-        private IEntity BuildPersonEntity(int id, string name, string surname)
+        private GeneralSqlPersonEntity BuildPersonEntity(int id, string name, string surname)
         {
             return new GeneralSqlPersonEntity()
             {

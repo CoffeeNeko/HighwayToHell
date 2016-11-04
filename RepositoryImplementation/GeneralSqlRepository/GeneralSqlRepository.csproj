@@ -64,7 +64,9 @@
     <Compile Include="Dao\GeneralSqlSinDao.cs" />
     <Compile Include="Entity\GeneralSqlPersonEntity.cs" />
     <Compile Include="Entity\GeneralSqlSinEntity.cs" />
+    <Compile Include="Factory\GeneralSqlPersonEntityFactory.cs" />
     <Compile Include="Factory\GeneralSqlPersonDtoFactory.cs" />
+    <Compile Include="Factory\GeneralSqlSinEntityFactory.cs" />
     <Compile Include="Factory\GeneralSqlSinDtoFactory.cs" />
     <Compile Include="Interface\IGeneralSqlDao.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

@@ -43,11 +43,13 @@
   <ItemGroup>
     <Compile Include="Dto\PersonDto.cs" />
     <Compile Include="Dto\SinDto.cs" />
+    <Compile Include="Factory\EntityFactory.cs" />
     <Compile Include="Factory\DtoFactory.cs" />
+    <Compile Include="Factory\GenericAbstractEntityFactory.cs" />
     <Compile Include="Factory\GenericAbstractDtoFactory.cs" />
     <Compile Include="Interface\IDto.cs" />
+    <Compile Include="Interface\IEntityFactory.cs" />
     <Compile Include="Interface\IEntity.cs" />
-    <Compile Include="Interface\IEntityToDtoMapper.cs" />
     <Compile Include="Interface\IDtoFactory.cs" />
     <Compile Include="Interface\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

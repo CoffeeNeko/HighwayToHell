@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GeneralSqlRepository.Dao;
+using GeneralSqlRepository.Entity;
 using GeneralSqlRepository.Interface;
 using HighwayToHell.Repository.Dto;
 
@@ -21,6 +22,7 @@ namespace GeneralSqlRepository.Repository
         private readonly GeneralSqlPersonDao _personDao;
         private readonly GeneralSqlPersonAndSinDao _personAndSinDao;
         private readonly IDtoFactory _dtoFactory;
+        private readonly IEntityFactory _entityFactory;
 
         /// <summary>
         /// 
@@ -29,19 +31,22 @@ namespace GeneralSqlRepository.Repository
         /// <param name="personDao"></param>
         /// <param name="dtoFactory"></param>
         /// <param name="personAndSinDao"></param>
-        public GeneralSqlRepositoryBase(GeneralSqlSinDao sinDao, GeneralSqlPersonDao personDao, IDtoFactory dtoFactory, GeneralSqlPersonAndSinDao personAndSinDao)
+        public GeneralSqlRepositoryBase(GeneralSqlSinDao sinDao, GeneralSqlPersonDao personDao, GeneralSqlPersonAndSinDao personAndSinDao,
+            IDtoFactory dtoFactory, IEntityFactory entityFactory)
         {
             _sinDao = sinDao;
             _personDao = personDao;
             _personAndSinDao = personAndSinDao;
             _dtoFactory = dtoFactory;
+            _entityFactory = entityFactory;
+
         }
 
         private List<IDto> CreateDtoList(List<IEntity> entities)
         {
             return entities.Select(entity => _dtoFactory.GiveDtoOf(entity)).ToList();
         }
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -49,7 +54,45 @@ namespace GeneralSqlRepository.Repository
         /// <exception cref="NotImplementedException"></exception>
         public List<PersonDto> GetAllPersons()
         {
-            return CreateDtoList(_personDao.GetAllPersons(_connectionString)).ConvertAll(dto => (PersonDto) dto);
+            var personEntities = _personDao.GetAllPersons(_connectionString);
+            
+            GiveSinsToPersons(personEntities);
+
+            return CreatePersonDtoList(personEntities).ConvertAll(dto => (PersonDto)dto);
+        }
+
+
+        private void GiveSinsToPersons(List<IEntity> persons)
+        {
+            List<int> sinIds = new List<int>();
+
+            foreach (var person in persons.Cast<GeneralSqlPersonEntity>())
+            {
+                sinIds = (_personAndSinDao.FindSinIdsOf(person, _connectionString));
+
+                person.Sins = FindSinsForPersons(sinIds);
+            }
+        }
+
+        private List<IEntity> FindSinsForPersons(List<int> sinIds)
+        {
+            return sinIds.Select(id => _sinDao.GetSinById(id, _connectionString)).ToList();
+        }
+
+        private List<IDto> CreatePersonDtoList(List<IEntity> personEntities)
+        {
+            var returnDtos = new List<IDto>();
+            foreach (var entity in personEntities)
+            {
+                var personEntity = (GeneralSqlPersonEntity) entity;
+
+                var sinDtos = personEntity.Sins.Select(sin => _dtoFactory.GiveDtoOf(sin)).ToList();
+                var personDto = (PersonDto)_dtoFactory.GiveDtoOf(personEntity);
+
+                personDto.Sins = sinDtos.ConvertAll(sin => (SinDto)sin);
+                returnDtos.Add(personDto);
+            }
+            return returnDtos;
         }
 
         /// <summary>
@@ -59,7 +102,22 @@ namespace GeneralSqlRepository.Repository
         /// <exception cref="NotImplementedException"></exception>
         public List<SinDto> GetAllSins()
         {
-            return CreateDtoList(_sinDao.GetAllSins(_connectionString)).ConvertAll(dto => (SinDto)dto);
+            var sinEntities = _sinDao.GetAllSins(_connectionString);
+
+            return CreateDtoList(sinEntities).ConvertAll(dto => (SinDto)dto);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sin"></param>
+        /// <returns></returns>
+        public List<PersonDto> GetAllPersonsOfSin(SinDto sin)
+        {
+            var personIds = _personAndSinDao.FindPersonIdsFor(_entityFactory.GiveEntityOf(sin) as GeneralSqlSinEntity, _connectionString);
+            var personEntities = personIds.Select(id => _personDao.GetPersonById(id, _connectionString)).ToList();
+
+            return CreatePersonDtoList(personEntities).ConvertAll(dto => (PersonDto)dto);
         }
 
         /// <summary>
@@ -67,9 +125,9 @@ namespace GeneralSqlRepository.Repository
         /// </summary>
         /// <param name="sin"></param>
         /// <exception cref="NotImplementedException"></exception>
-        public void AddSin(SinDto sin)
+        public void AddOrUpdateSin(SinDto sin)
         {
-            throw new NotImplementedException();
+            _sinDao.InsertSin(_entityFactory.GiveEntityOf(sin) as GeneralSqlSinEntity, _connectionString);
         }
 
         /// <summary>
@@ -77,9 +135,23 @@ namespace GeneralSqlRepository.Repository
         /// </summary>
         /// <param name="person"></param>
         /// <exception cref="NotImplementedException"></exception>
-        public void AddPerson(PersonDto person)
+        public void AddOrUpdatePerson(PersonDto person)
         {
-            throw new NotImplementedException();
+            var personEntity = _entityFactory.GiveEntityOf(person) as GeneralSqlPersonEntity;
+            UpdatePersonSin(person);
+            _personDao.InsertPerson(personEntity, _connectionString);
+        }
+
+        private void UpdatePersonSin(PersonDto personDto)
+        {
+            var personEntity = _entityFactory.GiveEntityOf(personDto) as GeneralSqlPersonEntity;
+
+            _personAndSinDao.RemoveByPerson(personEntity, _connectionString);
+            foreach (var sinDto in personDto.Sins)
+            {
+                var sinEntity = _entityFactory.GiveEntityOf(sinDto);
+                _personAndSinDao.AddPersonSin(personEntity, sinEntity as GeneralSqlSinEntity, _connectionString);
+            }
         }
 
         /// <summary>
@@ -89,7 +161,9 @@ namespace GeneralSqlRepository.Repository
         /// <exception cref="NotImplementedException"></exception>
         public void RemoveSin(SinDto sin)
         {
-            throw new NotImplementedException();
+            GeneralSqlSinEntity entity = _entityFactory.GiveEntityOf(sin) as GeneralSqlSinEntity;
+            _sinDao.RemoveSin(entity, _connectionString);
+            _personAndSinDao.RemoveBySin(entity, _connectionString);
         }
 
         /// <summary>
@@ -99,7 +173,9 @@ namespace GeneralSqlRepository.Repository
         /// <exception cref="NotImplementedException"></exception>
         public void RemovePerson(PersonDto person)
         {
-            throw new NotImplementedException();
+            GeneralSqlPersonEntity entity = _entityFactory.GiveEntityOf(person) as GeneralSqlPersonEntity;
+            _personDao.RemovePerson(entity, _connectionString);
+            _personAndSinDao.RemoveByPerson(entity, _connectionString);
         }
     }
 }
