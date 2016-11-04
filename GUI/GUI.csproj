@@ -78,6 +78,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
@@ -103,13 +104,17 @@
     <Compile Include="Model\PersonData.cs" />
     <Compile Include="Model\SinData.cs" />
     <Compile Include="Model\ViewModelData.cs" />
+    <Compile Include="Service\ColorCalculator.cs" />
     <Compile Include="Service\Command.cs" />
+    <Compile Include="Service\ImageContainer.cs" />
     <Compile Include="Service\Mapper\DtoMapperFactory.cs" />
     <Compile Include="Service\Mapper\PersonDtoToPersonDataMapper.cs" />
     <Compile Include="Service\Mapper\SinDtoToSinDataMapper.cs" />
     <Compile Include="Service\ViewModelDataBuilder.cs" />
     <Compile Include="ViewModel\GUIViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\SinChoiceViewModel.cs" />
+    <Compile Include="ViewModel\SinViewModel.cs" />
     <Compile Include="ViewModel\ViewModelAbstractBase.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\GUIViewBlack.xaml.cs">
@@ -117,6 +122,12 @@
     </Compile>
     <Compile Include="View\GUIViewWhite.xaml.cs">
       <DependentUpon>GUIViewWhite.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SinChoice.xaml.cs">
+      <DependentUpon>SinChoice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SinView.xaml.cs">
+      <DependentUpon>SinView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -148,6 +159,14 @@
     </Page>
     <Page Include="View\GUIViewWhite.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SinChoice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SinView.xaml">
+      <SubType>Form</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
@@ -203,11 +222,10 @@
       <Name>Repository</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Resource Include="Resources\Minutensprunguhr_animiert.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Resources\Evil.gif" />
+    <Resource Include="Resources\Good.gif" />
+    <Resource Include="Resources\Normal.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

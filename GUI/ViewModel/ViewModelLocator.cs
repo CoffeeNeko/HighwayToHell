@@ -1,27 +1,9 @@
-﻿/*
-  In App.xaml:
-  <Application.Resources>
-      <vm:ViewModelLocatorTemplate xmlns:vm="clr-namespace:GUI.ViewModel"
-                                   x:Key="Locator" />
-  </Application.Resources>
-  
-  In the View:
-  DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
-*/
-
-using System;
+﻿using System;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 
 namespace HighwayToHell.GUI.ViewModel
 {
-    /// <summary>
-    /// This class contains static references to all the view models in the
-    /// application and provides an entry point for the bindings.
-    /// <para>
-    /// See http://www.mvvmlight.net
-    /// </para>
-    /// </summary>
     public class ViewModelLocator
     {
         static ViewModelLocator()
@@ -57,6 +39,36 @@ namespace HighwayToHell.GUI.ViewModel
                 return GetViewModel<GUIViewModel>();
             }
         }
+        
+        /// <summary>
+        /// Gets the Sin property.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        // ReSharper disable once InconsistentNaming
+        public SinViewModel Sin
+        {
+            get
+            {
+                return GetViewModel<SinViewModel>();
+            }
+        }
+
+        /// <summary>
+        /// Gets the Sin property.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        // ReSharper disable once InconsistentNaming
+        public SinChoiceViewModel SinChoice
+        {
+            get
+            {
+                return GetViewModel<SinChoiceViewModel>();
+            }
+        }
 
         /// <summary>
         /// Cleans up all the resources.
@@ -65,6 +77,8 @@ namespace HighwayToHell.GUI.ViewModel
         {
             CleanViewModel<GUIViewModel>();
             CleanViewModel<MainViewModel>();
+            CleanViewModel<SinViewModel>();
+            CleanViewModel<SinChoiceViewModel>();
         }
 
         private static void CleanViewModel<T>() where T : class
