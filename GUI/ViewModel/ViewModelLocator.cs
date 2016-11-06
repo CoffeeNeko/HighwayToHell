@@ -26,6 +26,20 @@ namespace HighwayToHell.GUI.ViewModel
         }
 
         /// <summary>
+        /// Gets the Person property.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public PersonViewModel Person
+        {
+            get
+            {
+                return GetViewModel<PersonViewModel>();
+            }
+        }
+
+        /// <summary>
         /// Gets the GUI property.
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
@@ -51,12 +65,12 @@ namespace HighwayToHell.GUI.ViewModel
         {
             get
             {
-                return GetViewModel<SinViewModel>();
+                return new SinViewModel();
             }
         }
 
         /// <summary>
-        /// Gets the Sin property.
+        /// Gets the SinChoice property.
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
@@ -66,7 +80,22 @@ namespace HighwayToHell.GUI.ViewModel
         {
             get
             {
-                return GetViewModel<SinChoiceViewModel>();
+                return new SinChoiceViewModel();
+            }
+        }
+
+        /// <summary>
+        /// Gets the NewSin property.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        // ReSharper disable once InconsistentNaming
+        public NewSinViewModel NewSin
+        {
+            get
+            {
+                return new NewSinViewModel();
             }
         }
 
@@ -75,10 +104,9 @@ namespace HighwayToHell.GUI.ViewModel
         /// </summary>
         public static void Cleanup()
         {
+            CleanViewModel<PersonViewModel>();
             CleanViewModel<GUIViewModel>();
             CleanViewModel<MainViewModel>();
-            CleanViewModel<SinViewModel>();
-            CleanViewModel<SinChoiceViewModel>();
         }
 
         private static void CleanViewModel<T>() where T : class
@@ -86,10 +114,7 @@ namespace HighwayToHell.GUI.ViewModel
             try
             {
                 var viewModel = ServiceLocator.Current.GetInstance<T>() as ViewModelAbstractBase;
-                if (viewModel != null)
-                {
-                    viewModel.Cleanup();
-                }
+                viewModel?.Cleanup();
             }
             catch
             {

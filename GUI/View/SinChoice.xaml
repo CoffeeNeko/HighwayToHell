@@ -35,7 +35,41 @@
                           Grid.Row="1"
                           ItemsSource="{Binding Path=AllSins,
                                                 UpdateSourceTrigger=PropertyChanged}"
-                          SelectionMode="Single" />
+                          SelectionMode="Single">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Expander Grid.Column="1"
+                                          FontSize="16"
+                                          FontWeight="Bold"
+                                          Foreground="Black"
+                                          Header="{Binding Path=Name}"
+                                          IsExpanded="False">
+                                    <Grid>
+                                        <TextBlock FontSize="12"
+                                                   FontWeight="Bold"
+                                                   Foreground="Silver"
+                                                   Text="{Binding Path=Description}"
+                                                   TextDecorations="Underline" />
+                                        <TextBlock FontSize="12"
+                                                   FontWeight="Bold"
+                                                   Foreground="Black"
+                                                   Text="{Binding Path=Description}"
+                                                   TextDecorations="Underline">
+                                            <TextBlock.RenderTransform>
+                                                <TranslateTransform X="-0.5" Y="0.5" />
+                                            </TextBlock.RenderTransform>
+                                        </TextBlock>
+                                    </Grid>
+                                </Expander>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
             <Grid Grid.Column="1" VerticalAlignment="Center">
                 <Grid.RowDefinitions>
@@ -71,7 +105,41 @@
                           Grid.Row="1"
                           ItemsSource="{Binding Path=Sins,
                                                 UpdateSourceTrigger=PropertyChanged}"
-                          SelectionMode="Single" />
+                          SelectionMode="Single">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Expander Grid.Column="1"
+                                          FontSize="16"
+                                          FontWeight="Bold"
+                                          Foreground="Black"
+                                          Header="{Binding Path=Name}"
+                                          IsExpanded="False">
+                                    <Grid>
+                                        <TextBlock FontSize="12"
+                                                   FontWeight="Bold"
+                                                   Foreground="Silver"
+                                                   Text="{Binding Path=Description}"
+                                                   TextDecorations="Underline" />
+                                        <TextBlock FontSize="12"
+                                                   FontWeight="Bold"
+                                                   Foreground="Black"
+                                                   Text="{Binding Path=Description}"
+                                                   TextDecorations="Underline">
+                                            <TextBlock.RenderTransform>
+                                                <TranslateTransform X="-0.5" Y="0.5" />
+                                            </TextBlock.RenderTransform>
+                                        </TextBlock>
+                                    </Grid>
+                                </Expander>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
         </Grid>
         <Button Grid.Row="1"

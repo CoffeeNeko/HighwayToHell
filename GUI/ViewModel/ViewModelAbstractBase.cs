@@ -13,6 +13,7 @@ namespace HighwayToHell.GUI.ViewModel
         public static int Index { get; set; }
         protected static bool IsPopUpActivated;
         protected static SinView SinView;
+        protected static PersonView PersonView;
         private readonly DtoMapperFactory _dtoMapperFactory;
         public static ViewModelData Data { get; private set; }
         protected List<string> UpdateElements;

@@ -79,6 +79,7 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
@@ -113,6 +114,8 @@
     <Compile Include="Service\ViewModelDataBuilder.cs" />
     <Compile Include="ViewModel\GUIViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\NewSinViewModel.cs" />
+    <Compile Include="ViewModel\PersonViewModel.cs" />
     <Compile Include="ViewModel\SinChoiceViewModel.cs" />
     <Compile Include="ViewModel\SinViewModel.cs" />
     <Compile Include="ViewModel\ViewModelAbstractBase.cs" />
@@ -122,6 +125,12 @@
     </Compile>
     <Compile Include="View\GUIViewWhite.xaml.cs">
       <DependentUpon>GUIViewWhite.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NewSinView.xaml.cs">
+      <DependentUpon>NewSinView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PersonView.xaml.cs">
+      <DependentUpon>PersonView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SinChoice.xaml.cs">
       <DependentUpon>SinChoice.xaml</DependentUpon>
@@ -158,6 +167,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\GUIViewWhite.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NewSinView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PersonView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

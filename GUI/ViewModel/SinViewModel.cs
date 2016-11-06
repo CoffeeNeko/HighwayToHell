@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using HighwayToHell.GUI.Service;
 using HighwayToHell.GUI.View;
 
@@ -25,7 +24,7 @@ namespace HighwayToHell.GUI.ViewModel
                 }
                 else
                 {
-                    View= new GUIViewBlack();
+                    View = new NewSinView();
                 }
                 RaisePropertyChanged();
             }
@@ -51,13 +50,12 @@ namespace HighwayToHell.GUI.ViewModel
 
         public SinViewModel()
         {
-            //ClosingCommand = new Command(Close);
+            ClosingCommand = new Command(Close);
         }
 
-        private static void Close(object sender, CancelEventArgs args)
+        private static void Close()
         {
             IsPopUpActivated = false;
-            SinView.Close();
         }
     }
 }

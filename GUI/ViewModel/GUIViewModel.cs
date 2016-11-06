@@ -20,6 +20,7 @@ namespace HighwayToHell.GUI.ViewModel
         public Command NextCommand { get; private set; }
         public Command PreCommand { get; private set; }
         public Command AddCommand { get; private set; }
+        public Command RefreshCommand { get; private set; }
         public Command<SinData> DeleteCommand { get; private set; }
         private PersonData _person;
         public PersonData Person
@@ -59,6 +60,8 @@ namespace HighwayToHell.GUI.ViewModel
             get { return _colorCalculator.GetBackgroundColor(Person.HeavCount, Person.HellCount); }
         }
 
+        public Command PersonCommand { get; private set; }
+
         public GUIViewModel()
         {
             Index = 0;
@@ -68,8 +71,10 @@ namespace HighwayToHell.GUI.ViewModel
             _colorCalculator = new ColorCalculator(100,255,100);
             NextCommand = new Command(Next);
             PreCommand = new Command(Pre);
-            AddCommand = new Command(OpenAdd);
+            AddCommand = new Command(OpenSin);
             DeleteCommand = new Command<SinData>(Delete);
+            RefreshCommand = new Command(PersonUpdate);
+            PersonCommand = new Command(OpenPerson);
             Person = Data.Persons[Index];
         }
 
@@ -127,15 +132,24 @@ namespace HighwayToHell.GUI.ViewModel
             Person = Data.Persons[Index];
         }
 
-        private void OpenAdd()
+        private void OpenSin()
         {
             var waitThread = new Thread(Wait);
             waitThread.SetApartmentState(ApartmentState.STA);
             IsPopUpActivated = true;
-            // ReSharper disable once ExplicitCallerInfoArgument
             Update();
             SinView = new SinView();
             SinView.Show();
+            waitThread.Start();
+        }
+        private void OpenPerson()
+        {
+            var waitThread = new Thread(Wait);
+            waitThread.SetApartmentState(ApartmentState.STA);
+            IsPopUpActivated = true;
+            Update();
+            PersonView = new PersonView();
+            PersonView.Show();
             waitThread.Start();
         }
 
@@ -145,10 +159,9 @@ namespace HighwayToHell.GUI.ViewModel
             {
                 Thread.Sleep(500);
             }
-            // ReSharper disable once ExplicitCallerInfoArgument
             Update();
-            Thread.Sleep(500);
-            PersonUpdate(); 
+            SinView = null;
+            PersonView = null;
         }
     }
 }
