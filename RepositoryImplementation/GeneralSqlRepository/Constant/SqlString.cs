@@ -17,6 +17,8 @@ namespace GeneralSqlRepository.Constant
         public const string SqlGetAllPersons = "SELECT * FROM Person";
         public const string SqlGetAllSins = "SELECT * FROM Sin";
 
+        
+
         public const string SqlInsertPerson = "UPDATE Person " +
                                                 "SET Name = " + SqlParameterName + "," +
                                                 "Surname = " + SqlParamedterSurname + " " +
@@ -29,12 +31,18 @@ namespace GeneralSqlRepository.Constant
         public const string SqlInsertSin = "UPDATE Sin " +
                                               "SET Name = " + SqlParameterName + ", " +
                                               "Description = " + SqlParamedterDescription + " " +
-                                              "WHERE id = " + SqlParameterIdSin +
+                                              "WHERE id = " + SqlParameterIdSin + " " +
                                            "IF @@ROWCOUNT = 0 " +
                                               "INSERT INTO Sin (Name, Description) " +
                                               "VALUES (" + SqlParameterName + "," + SqlParamedterDescription + ")";
         public const string SqlInsertPersonSin =
             "INSERT INTO Person_Sin (PersonId, SinId) values(" + SqlParameterIdPerson + "," + SqlParameterIdSin + ")";
+        public const string SqlInsertPersonSinIdentity =
+            "INSERT INTO Person_Sin (PersonId, SinId) values(IDENT_CURRENT('Person'),IDENT_CURRENT('Sin'))";
+        public const string SqlInsertPersonSinIdentitySin =
+            "INSERT INTO Person_Sin (PersonId, SinId) values(" + SqlParameterIdPerson + ",IDENT_CURRENT('Sin'))";
+        public const string SqlInsertPersonSinIdentityPerson =
+            "INSERT INTO Person_Sin (PersonId, SinId) values(IDENT_CURRENT('Person')," + SqlParameterIdSin + ")";
 
         public const string SqlRemovePersonById = "DELETE FROM Person WHERE id = " + SqlParameterIdPerson;
         public const string SqlRemoveSinById = "DELETE FROM Sin WHERE id = " + SqlParameterIdSin;

@@ -17,5 +17,10 @@ namespace HighwayToHell.Repository.Dto
         {
             Sins = new List<SinDto>();
         }
+
+        public void AddSin(SinDto sin)
+        {
+            Sins.Add(sin);
+        }
     }
 }

@@ -8,6 +8,7 @@ using GeneralSqlRepository.Dao;
 using GeneralSqlRepository.Entity;
 using GeneralSqlRepository.Interface;
 using HighwayToHell.Repository.Dto;
+using System.Data.SqlClient;
 
 namespace GeneralSqlRepository.Repository
 {
@@ -41,7 +42,7 @@ namespace GeneralSqlRepository.Repository
             _entityFactory = entityFactory;
 
         }
-
+       
         private List<IDto> CreateDtoList(List<IEntity> entities)
         {
             return entities.Select(entity => _dtoFactory.GiveDtoOf(entity)).ToList();
@@ -138,18 +139,22 @@ namespace GeneralSqlRepository.Repository
         public void AddOrUpdatePerson(PersonDto person)
         {
             var personEntity = _entityFactory.GiveEntityOf(person) as GeneralSqlPersonEntity;
-            UpdatePersonSin(person);
             _personDao.InsertPerson(personEntity, _connectionString);
+
+            UpdatePersonSin(person);
         }
 
         private void UpdatePersonSin(PersonDto personDto)
         {
             var personEntity = _entityFactory.GiveEntityOf(personDto) as GeneralSqlPersonEntity;
-
             _personAndSinDao.RemoveByPerson(personEntity, _connectionString);
             foreach (var sinDto in personDto.Sins)
             {
                 var sinEntity = _entityFactory.GiveEntityOf(sinDto);
+                if (((GeneralSqlSinEntity)sinEntity).Id == 0)
+                {
+                    _sinDao.InsertSin((GeneralSqlSinEntity) sinEntity, _connectionString);
+                }
                 _personAndSinDao.AddPersonSin(personEntity, sinEntity as GeneralSqlSinEntity, _connectionString);
             }
         }

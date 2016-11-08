@@ -71,23 +71,53 @@ namespace GeneralSqlRepository.Dao
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand(Constant.SqlString.SqlInsertPersonSin,
-                                                    connection);
-                SqlParameter parameter1 = new SqlParameter
-                {
-                    ParameterName = Constant.SqlString.SqlParameterIdPerson,
-                    Value = person.Id
-                };
-                command.Parameters.Add(parameter1);
+                var transaction = connection.BeginTransaction();
 
-                SqlParameter parameter2 = new SqlParameter
+                using (SqlCommand command = connection.CreateCommand())
                 {
-                    ParameterName = Constant.SqlString.SqlParameterIdSin,
-                    Value = sin.Id
-                };
-                command.Parameters.Add(parameter2);
+                    command.Connection = connection;
+                    command.Transaction = transaction;
 
-                command.ExecuteNonQuery();
+                    if (person.Id == 0)
+                    {
+                        if (sin.Id == 0)
+                        {
+                            command.CommandText = Constant.SqlString.SqlInsertPersonSinIdentity;
+                        }
+                        else
+                        {
+                            command.CommandText = Constant.SqlString.SqlInsertPersonSinIdentityPerson;
+                        }
+                    }
+                    else
+                    {
+                        if (sin.Id == 0)
+                        {
+                            command.CommandText = Constant.SqlString.SqlInsertPersonSinIdentitySin;
+                        }
+                        else
+                        {
+                            command.CommandText = Constant.SqlString.SqlInsertPersonSin;
+                        }
+                    }
+
+                    SqlParameter parameter1 = new SqlParameter
+                    {
+                        ParameterName = Constant.SqlString.SqlParameterIdPerson,
+                        Value = person.Id
+                    };
+                    command.Parameters.Add(parameter1);
+
+                    SqlParameter parameter2 = new SqlParameter
+                    {
+                        ParameterName = Constant.SqlString.SqlParameterIdSin,
+                        Value = sin.Id
+                    };
+                    command.Parameters.Add(parameter2);
+
+                    command.ExecuteNonQuery();
+                    transaction.Commit();
+                }
             }
         }
 
