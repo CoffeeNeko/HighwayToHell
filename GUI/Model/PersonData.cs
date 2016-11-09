@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 using HighwayToHell.GUI.Interface;
+using HighwayToHell.GUI.Service;
+using HighwayToHell.Repository.Interface;
 
 namespace HighwayToHell.GUI.Model
 {
     public class PersonData : IData
     {
-        public List<SinData> Sins { get; private set; }
+        public List<SinData> Sins { get; set; }
         public string Name { get; private set; }
         public string Surname { get; set; }
-        private static BitmapImage _evilSkin;
-        private static BitmapImage _normalSkin;
-        private static BitmapImage _goodSkin;
+        public IDto dto { get; set; }
 
         public double HeavCount
         {
@@ -43,36 +43,7 @@ namespace HighwayToHell.GUI.Model
 
         public BitmapImage Skin
         {
-            get
-            {
-                if (HeavCount > 0)
-                {
-                    return GetGoodSkin();
-                }
-                return HellCount > 0 ? GetEvilSkin() : GetNormalSkin();
-            }
-        }
-
-        private static BitmapImage GetGoodSkin()
-        {
-            return _goodSkin ??
-                   (_goodSkin =
-                       new BitmapImage(new Uri("pack://application:,,,/Resources/Minutensprunguhr_animiert.gif",
-                           UriKind.Absolute)));
-        }
-        private static BitmapImage GetEvilSkin()
-        {
-            return _evilSkin ??
-                   (_evilSkin =
-                       new BitmapImage(new Uri("pack://application:,,,/Resources/Minutensprunguhr_animiert.gif",
-                           UriKind.Absolute)));
-        }
-        private static BitmapImage GetNormalSkin()
-        {
-            return _normalSkin ??
-                   (_normalSkin =
-                       new BitmapImage(new Uri("pack://application:,,,/Resources/Minutensprunguhr_animiert.gif",
-                           UriKind.Absolute)));
+            get { return ImageContainer.GetInstance().GetPersonSkin(HellCount, HeavCount); }
         }
 
         public PersonData(string name, string surname)

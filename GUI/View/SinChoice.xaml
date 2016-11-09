@@ -1,0 +1,151 @@
+﻿<UserControl x:Class="HighwayToHell.GUI.View.SinChoice"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ignore="http://www.galasoft.ch/ignore"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             DataContext="{Binding SinChoice,
+                                   Source={StaticResource Locator}}"
+             mc:Ignorable="d ignore">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"
+                           HorizontalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="Alle Sünden" />
+                <ListView x:Name="AllList"
+                          Grid.Row="1"
+                          ItemsSource="{Binding Path=AllSins,
+                                                UpdateSourceTrigger=PropertyChanged}"
+                          SelectionMode="Single">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Expander Grid.Column="1"
+                                          FontSize="16"
+                                          FontWeight="Bold"
+                                          Foreground="Black"
+                                          Header="{Binding Path=Name}"
+                                          IsExpanded="False">
+                                    <Grid>
+                                        <TextBlock FontSize="12"
+                                                   FontWeight="Bold"
+                                                   Foreground="Silver"
+                                                   Text="{Binding Path=Description}"
+                                                   TextDecorations="Underline" />
+                                        <TextBlock FontSize="12"
+                                                   FontWeight="Bold"
+                                                   Foreground="Black"
+                                                   Text="{Binding Path=Description}"
+                                                   TextDecorations="Underline">
+                                            <TextBlock.RenderTransform>
+                                                <TranslateTransform X="-0.5" Y="0.5" />
+                                            </TextBlock.RenderTransform>
+                                        </TextBlock>
+                                    </Grid>
+                                </Expander>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+            <Grid Grid.Column="1" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        Command="{Binding Path=AddCommand}"
+                        CommandParameter="{Binding ElementName=AllList,
+                                                   Path=SelectedItem}"
+                        Content="Hinzufügen" />
+                <Button Grid.Row="1"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        Command="{Binding Path=RemoveCommand}"
+                        CommandParameter="{Binding ElementName=MyList,
+                                                   Path=SelectedItem}"
+                        Content="Entfernen" />
+            </Grid>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"
+                           HorizontalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="Meine Sünden" />
+                <ListView x:Name="MyList"
+                          Grid.Row="1"
+                          ItemsSource="{Binding Path=Sins,
+                                                UpdateSourceTrigger=PropertyChanged}"
+                          SelectionMode="Single">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Expander Grid.Column="1"
+                                          FontSize="16"
+                                          FontWeight="Bold"
+                                          Foreground="Black"
+                                          Header="{Binding Path=Name}"
+                                          IsExpanded="False">
+                                    <Grid>
+                                        <TextBlock FontSize="12"
+                                                   FontWeight="Bold"
+                                                   Foreground="Silver"
+                                                   Text="{Binding Path=Description}"
+                                                   TextDecorations="Underline" />
+                                        <TextBlock FontSize="12"
+                                                   FontWeight="Bold"
+                                                   Foreground="Black"
+                                                   Text="{Binding Path=Description}"
+                                                   TextDecorations="Underline">
+                                            <TextBlock.RenderTransform>
+                                                <TranslateTransform X="-0.5" Y="0.5" />
+                                            </TextBlock.RenderTransform>
+                                        </TextBlock>
+                                    </Grid>
+                                </Expander>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Grid>
+        <Button Grid.Row="1"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Command="{Binding Path=SaveCommand}"
+                Content="Speichern" />
+    </Grid>
+</UserControl>

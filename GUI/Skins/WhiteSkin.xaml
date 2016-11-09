@@ -74,7 +74,7 @@
                                 <GeometryDrawing.Brush>
                                     <LinearGradientBrush>
                                         <GradientStop Offset="0" Color="SaddleBrown" />
-                                        <GradientStop Offset="1" Color="SandyBrown" />
+                                        <GradientStop Offset="1" Color="DarkRed" />
                                     </LinearGradientBrush>
                                 </GeometryDrawing.Brush>
                                 <GeometryDrawing.Geometry>
@@ -96,7 +96,7 @@
                             <GeometryDrawing>
                                 <GeometryDrawing.Brush>
                                     <LinearGradientBrush>
-                                        <GradientStop Offset="0" Color="SandyBrown" />
+                                        <GradientStop Offset="0" Color="Black" />
                                         <GradientStop Offset="1" Color="SaddleBrown" />
                                     </LinearGradientBrush>
                                 </GeometryDrawing.Brush>
@@ -120,7 +120,7 @@
                                 <GeometryDrawing.Brush>
                                     <LinearGradientBrush>
                                         <GradientStop Offset="0" Color="SaddleBrown" />
-                                        <GradientStop Offset="1" Color="SandyBrown" />
+                                        <GradientStop Offset="1" Color="DarkRed" />
                                     </LinearGradientBrush>
                                 </GeometryDrawing.Brush>
                                 <GeometryDrawing.Geometry>
@@ -142,7 +142,7 @@
                             <GeometryDrawing>
                                 <GeometryDrawing.Brush>
                                     <LinearGradientBrush>
-                                        <GradientStop Offset="0" Color="SandyBrown" />
+                                        <GradientStop Offset="0" Color="Black" />
                                         <GradientStop Offset="1" Color="SaddleBrown" />
                                     </LinearGradientBrush>
                                 </GeometryDrawing.Brush>

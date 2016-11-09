@@ -1,26 +1,42 @@
-﻿using System;
+﻿using System.Threading;
+using System.Windows;
 using System.Windows.Media;
 using HighwayToHell.GUI.Model;
 using HighwayToHell.GUI.Service;
+using HighwayToHell.GUI.View;
+using MessageBox = System.Windows.MessageBox;
 
 namespace HighwayToHell.GUI.ViewModel
 {
     // ReSharper disable once InconsistentNaming
     public class GUIViewModel : ViewModelAbstractBase
     {
-        public int Index { get; set; }
-        private const int DefaultRed = 100;
-        private const int DefaultGreen = 255;
-        private const int DefaultBlue = 100;
+        private readonly ColorCalculator _colorCalculator;
+
+        public bool Active
+        {
+            get { return !IsPopUpActivated; }
+        }
         public Command NextCommand { get; private set; }
         public Command PreCommand { get; private set; }
+        public Command AddCommand { get; private set; }
+        public Command RefreshCommand { get; private set; }
+        public Command<SinData> DeleteCommand { get; private set; }
+        private PersonData _person;
         public PersonData Person
         {
-            get
+            set
             {
-                IndexValidation();
-                return Data.Persons[Index];
+                if (value.Equals(_person))
+                {
+                    return;
+                }
+                _person = value;
+                // ReSharper disable once ExplicitCallerInfoArgument
+                RaisePropertyChanged("BackgroundColor");
+                RaisePropertyChanged();
             }
+            get { return _person; }
         }
 
         public bool CanBack
@@ -41,38 +57,28 @@ namespace HighwayToHell.GUI.ViewModel
 
         public Color BackgroundColor
         {
-            get
-            {
-                if (Person.HeavCount > 0)
-                {
-                    return CalcColor(50, 50, 255, Person.HeavCount);
-                }
-                return Person.HellCount > 0 ? CalcColor(255, 125, 50, Person.HellCount) : CalcColor(DefaultRed, DefaultGreen, DefaultBlue, 0);
-            }
+            get { return _colorCalculator.GetBackgroundColor(Person.HeavCount, Person.HellCount); }
         }
+
+        public Command PersonCommand { get; private set; }
 
         public GUIViewModel()
         {
             Index = 0;
+            UpdateElements.Add("CanBack");
+            UpdateElements.Add("CanNext");
+            UpdateElements.Add("Active");
+            _colorCalculator = new ColorCalculator(100,255,100);
             NextCommand = new Command(Next);
             PreCommand = new Command(Pre);
-            for (var i = 0; i < 100; i++)
-            {
-                Data.Persons.Add(CreatePerson(i));
-            }
+            AddCommand = new Command(OpenSin);
+            DeleteCommand = new Command<SinData>(Delete);
+            RefreshCommand = new Command(PersonUpdate);
+            PersonCommand = new Command(OpenPerson);
+            Person = Data.Persons[Index];
         }
 
-        private static PersonData CreatePerson(int index)
-        {
-            var person = new PersonData("name:"+index, "surname:" + index);
-            for (var i = 0; i < index; i++)
-            {
-                person.Sins.Add(new SinData("SündenText" + i, "Sünde" + i));
-            }
-            return person;
-        }
-
-        private void IndexValidation()
+        private static void IndexValidation()
         {
             if (Index >= Data.Persons.Count)
             {
@@ -87,33 +93,75 @@ namespace HighwayToHell.GUI.ViewModel
         private void Next()
         {
             Index++;
-            UpdateView();
+            ChangePerson();
         }
 
         private void Pre()
         {
             Index--;
-            UpdateView();
+            ChangePerson();
         }
 
-        private void UpdateView()
+        private void ChangePerson()
         {
+            IndexValidation();
+            Person = Data.Persons[Index];
+            Update();
+        }
+
+        private void Delete(SinData data)
+        {
+            if (data == null)
+            {
+                return;
+            }
+            var dialogResult = MessageBox.Show("Wollen Sie wirklich diese Sünde ablegen?", "Entfernen", MessageBoxButton.YesNo);
+            if (dialogResult != MessageBoxResult.Yes)
+            {
+                return;
+            }
+            Person.Sins.Remove(data);
+            PersonUpdate();
+        }
+
+        private void PersonUpdate()
+        {
+            _person = null;
+            // ReSharper disable once ExplicitCallerInfoArgument
             RaisePropertyChanged("Person");
-            RaisePropertyChanged("CanBack");
-            RaisePropertyChanged("CanNext");
-            RaisePropertyChanged("BackgroundColor");
+            Person = Data.Persons[Index];
         }
 
-        private static Color CalcColor(int red, int green, int blue, double count)
+        private void OpenSin()
         {
-            count = count*2;
-            var redFeet = red/DefaultRed;
-            var greenFeet = green/DefaultGreen;
-            var blueFeet = blue/DefaultBlue;
-            var redByte = Convert.ToByte(redFeet * count);
-            var greenByte = Convert.ToByte(greenFeet * count);
-            var blueByte = Convert.ToByte(blueFeet * count);
-            return Color.FromRgb(redByte, greenByte, blueByte);
+            var waitThread = new Thread(Wait);
+            waitThread.SetApartmentState(ApartmentState.STA);
+            IsPopUpActivated = true;
+            Update();
+            SinView = new SinView();
+            SinView.Show();
+            waitThread.Start();
+        }
+        private void OpenPerson()
+        {
+            var waitThread = new Thread(Wait);
+            waitThread.SetApartmentState(ApartmentState.STA);
+            IsPopUpActivated = true;
+            Update();
+            PersonView = new PersonView();
+            PersonView.Show();
+            waitThread.Start();
+        }
+
+        private void Wait()
+        {
+            while (IsPopUpActivated)
+            {
+                Thread.Sleep(500);
+            }
+            Update();
+            SinView = null;
+            PersonView = null;
         }
     }
 }

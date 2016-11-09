@@ -30,6 +30,8 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -78,6 +80,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
@@ -103,13 +107,20 @@
     <Compile Include="Model\PersonData.cs" />
     <Compile Include="Model\SinData.cs" />
     <Compile Include="Model\ViewModelData.cs" />
+    <Compile Include="Service\ColorCalculator.cs" />
     <Compile Include="Service\Command.cs" />
+    <Compile Include="Service\ImageContainer.cs" />
     <Compile Include="Service\Mapper\DtoMapperFactory.cs" />
+    <Compile Include="Service\Mapper\GenericAbstractDataMapper.cs" />
     <Compile Include="Service\Mapper\PersonDtoToPersonDataMapper.cs" />
     <Compile Include="Service\Mapper\SinDtoToSinDataMapper.cs" />
     <Compile Include="Service\ViewModelDataBuilder.cs" />
     <Compile Include="ViewModel\GUIViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\NewSinViewModel.cs" />
+    <Compile Include="ViewModel\PersonViewModel.cs" />
+    <Compile Include="ViewModel\SinChoiceViewModel.cs" />
+    <Compile Include="ViewModel\SinViewModel.cs" />
     <Compile Include="ViewModel\ViewModelAbstractBase.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\GUIViewBlack.xaml.cs">
@@ -117,6 +128,18 @@
     </Compile>
     <Compile Include="View\GUIViewWhite.xaml.cs">
       <DependentUpon>GUIViewWhite.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NewSinView.xaml.cs">
+      <DependentUpon>NewSinView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PersonView.xaml.cs">
+      <DependentUpon>PersonView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SinChoice.xaml.cs">
+      <DependentUpon>SinChoice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SinView.xaml.cs">
+      <DependentUpon>SinView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -148,6 +171,22 @@
     </Page>
     <Page Include="View\GUIViewWhite.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NewSinView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PersonView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SinChoice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SinView.xaml">
+      <SubType>Form</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
@@ -203,13 +242,19 @@
       <Name>Repository</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Resource Include="Resources\Minutensprunguhr_animiert.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Resources\Evil.gif" />
+    <Resource Include="Resources\Good.gif" />
+    <Resource Include="Resources\Normal.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
