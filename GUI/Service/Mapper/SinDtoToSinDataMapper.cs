@@ -6,7 +6,7 @@ using HighwayToHell.GUI.Model;
 
 namespace HighwayToHell.GUI.Service.Mapper
 {
-    class SinDtoToSinDataMapper : GenericAbstractMapper<SinDto>
+    class SinDtoToSinDataMapper : GenericAbstractDataMapper<SinDto>
     {
         protected override IData MapDataFrom(SinDto dto)
         {

@@ -6,7 +6,7 @@ using HighwayToHell.GUI.Model;
 
 namespace HighwayToHell.GUI.Service.Mapper
 {
-    class PersonDtoToPersonDataMapper : GenericAbstractMapper<PersonDto>
+    class PersonDtoToPersonDataMapper : GenericAbstractDataMapper<PersonDto>
     {
         public Func<IDto, IData> GetSinDataOfDto;
 
