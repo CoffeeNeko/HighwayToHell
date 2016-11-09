@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 using HighwayToHell.GUI.Interface;
 using HighwayToHell.GUI.Service;
+using HighwayToHell.Repository.Interface;
 
 namespace HighwayToHell.GUI.Model
 {
@@ -11,6 +12,7 @@ namespace HighwayToHell.GUI.Model
         public List<SinData> Sins { get; set; }
         public string Name { get; private set; }
         public string Surname { get; set; }
+        public IDto dto { get; set; }
 
         public double HeavCount
         {
