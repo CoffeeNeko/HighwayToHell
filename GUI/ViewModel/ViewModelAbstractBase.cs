@@ -85,5 +85,15 @@ namespace HighwayToHell.GUI.ViewModel
                 _repository.AddOrUpdatePerson((PersonDto)person.dto);
             }
         }
+
+        protected void SaveSinToDB(SinData data)
+        {
+            _repository.AddOrUpdateSin(new SinDto()
+            {
+                Id = 0,
+                Name = data.Name,
+                Description = data.Description
+            });
+        }
     }
 }

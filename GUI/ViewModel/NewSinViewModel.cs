@@ -32,6 +32,7 @@ namespace HighwayToHell.GUI.ViewModel
             MessageBox.Show("Die Sünde wurde erfolgreich hinzugefügt.");
             Name = string.Empty;
             Description = string.Empty;
+            SaveSinToDB(sin);
             Update();
         }
 

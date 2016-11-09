@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using HighwayToHell.GUI.Model;
 using HighwayToHell.GUI.Service;
+using HighwayToHell.Repository.Interface;
+using HighwayToHell.Repository.Dto;
 
 namespace HighwayToHell.GUI.ViewModel
 {
@@ -65,6 +67,13 @@ namespace HighwayToHell.GUI.ViewModel
         private void Save()
         {
             Data.Persons[Index].Sins = Sins;
+            List<SinDto> sinDtos = new List<SinDto>();
+            foreach(var sin in Sins) {
+                sinDtos.Add((SinDto) sin.Dto);
+            }
+            PersonDto person = Data.Persons[Index].dto as PersonDto;
+            person.Sins = sinDtos;
+            SavePersonsToDB();
             Close();
         }
 
