@@ -41,17 +41,17 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dao\EfPersonDao.cs" />
-    <Compile Include="Dao\EfSinDao.cs" />
     <Compile Include="Dto\PersonDto.cs" />
     <Compile Include="Dto\SinDto.cs" />
+    <Compile Include="Factory\EntityFactory.cs" />
+    <Compile Include="Factory\DtoFactory.cs" />
+    <Compile Include="Factory\GenericAbstractEntityFactory.cs" />
+    <Compile Include="Factory\GenericAbstractDtoFactory.cs" />
     <Compile Include="Interface\IDto.cs" />
-    <Compile Include="Interface\IEfEntityToDtoMapper.cs" />
+    <Compile Include="Interface\IEntityFactory.cs" />
     <Compile Include="Interface\IEntity.cs" />
-    <Compile Include="Interface\IEntityFrameWorkDao.cs" />
+    <Compile Include="Interface\IDtoFactory.cs" />
     <Compile Include="Interface\IRepository.cs" />
-    <Compile Include="Mapper\PersonEfEntityToDtoMapper.cs" />
-    <Compile Include="Mapper\SinEfEntityToDtoMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -63,9 +63,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Service\EfMapperFactory.cs" />
-    <Compile Include="Service\EntityFrameWorkBase.cs" />
-    <Compile Include="Service\Repository.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

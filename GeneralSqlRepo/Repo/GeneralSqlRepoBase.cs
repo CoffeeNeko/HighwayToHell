@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HighwayToHell.Repository.Interface
+namespace GeneralSqlRepo.Repo
 {
-    public interface IEntity
+    class GeneralSqlRepoBase
     {
     }
 }

@@ -7,8 +7,9 @@ namespace HighwayToHell.Repository.Interface
     {
         List<PersonDto> GetAllPersons();
         List<SinDto> GetAllSins();
-        void AddSin(SinDto sin);
-        void AddPerson(PersonDto person);
+        List<PersonDto> GetAllPersonsOfSin(SinDto sin);
+        void AddOrUpdateSin(SinDto sin);
+        void AddOrUpdatePerson(PersonDto person);
         void RemoveSin(SinDto sin);
         void RemovePerson(PersonDto person);
     }

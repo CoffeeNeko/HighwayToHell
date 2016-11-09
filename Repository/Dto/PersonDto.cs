@@ -5,25 +5,22 @@ namespace HighwayToHell.Repository.Dto
 {
     public class PersonDto : IDto
     {
-        private readonly int _id;
+        public string Name { get; set; }
 
-        public PersonDto(int id, string name, string surname, List<SinDto> sins)
+        public string Surname { get; set; }
+
+        public List<SinDto> Sins { get; set; }
+
+        public int Id { get; set; }
+
+        public PersonDto()
         {
-            _id = id;
-            Name = name;
-            Surname = surname;
-            Sins = sins;
+            Sins = new List<SinDto>();
         }
 
-        public string Name { get; private set; }
-
-        public string Surname { get; private set; }
-
-        public List<SinDto> Sins { get; private set; }
-
-        public int Id
+        public void AddSin(SinDto sin)
         {
-            get { return _id; }
+            Sins.Add(sin);
         }
     }
 }
