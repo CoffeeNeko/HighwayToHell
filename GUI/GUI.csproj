@@ -111,6 +111,7 @@
     <Compile Include="Service\Command.cs" />
     <Compile Include="Service\ImageContainer.cs" />
     <Compile Include="Service\Mapper\DtoMapperFactory.cs" />
+    <Compile Include="Service\Mapper\GenericAbstractDataMapper.cs" />
     <Compile Include="Service\Mapper\PersonDtoToPersonDataMapper.cs" />
     <Compile Include="Service\Mapper\SinDtoToSinDataMapper.cs" />
     <Compile Include="Service\ViewModelDataBuilder.cs" />
