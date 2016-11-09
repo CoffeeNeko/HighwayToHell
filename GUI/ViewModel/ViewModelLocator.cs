@@ -114,7 +114,7 @@ namespace HighwayToHell.GUI.ViewModel
             try
             {
                 var viewModel = ServiceLocator.Current.GetInstance<T>() as ViewModelAbstractBase;
-                viewModel?.Cleanup();
+                viewModel.Cleanup();
             }
             catch
             {

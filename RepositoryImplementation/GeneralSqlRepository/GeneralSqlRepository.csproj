@@ -68,6 +68,7 @@
     <Compile Include="Factory\GeneralSqlPersonDtoFactory.cs" />
     <Compile Include="Factory\GeneralSqlSinEntityFactory.cs" />
     <Compile Include="Factory\GeneralSqlSinDtoFactory.cs" />
+    <Compile Include="InitGeneralRepo.cs" />
     <Compile Include="Interface\IGeneralSqlDao.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

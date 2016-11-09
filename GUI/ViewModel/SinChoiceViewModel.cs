@@ -20,10 +20,17 @@ namespace HighwayToHell.GUI.ViewModel
             SaveCommand = new Command(Save);
             AllSins = new List<SinData>();
             UpdateElements.Add("Sins");
-            for (var i = 0; i < 101; i++)
+
+            
+            foreach (var sin in _repository.GetAllSins())
             {
-                AllSins.Add(new SinData("SündenText" + i, "Sünde" + i));
+                AllSins.Add((SinData)_dtoMapperFactory.GiveDataOf(sin));
             }
+            /*------------TestDaten Ab Hier--------------*/
+            //for (var i = 0; i < 101; i++)
+            //{
+            //    AllSins.Add(new SinData("SündenText" + i, "Sünde" + i));
+            //}
         }
 
         private void Add(SinData data)

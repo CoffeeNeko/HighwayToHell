@@ -39,6 +39,7 @@ namespace HighwayToHell.GUI.ViewModel
             Data.Persons.Add(person);
             Name = string.Empty;
             Surname = string.Empty;
+            SavePersonsToDB();
             Update();
             Close();
         }

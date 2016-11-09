@@ -5,13 +5,14 @@ using System.Collections.Generic;
 
 namespace HighwayToHell.GUI.Service.Mapper
 {
-    class DtoMapperFactory
+    public class DtoMapperFactory
     {
         private readonly List<IMapper> _mappers;
 
         public DtoMapperFactory()
         {
             _mappers = new List<IMapper>();
+            InitMappers();
         }
 
         private void InitMappers()
